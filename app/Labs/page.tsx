@@ -5,6 +5,12 @@ export default function Labs() {
       <h1>Labs</h1>
       <h3>Sandra Castro-Valadez</h3>
       <h3>CS4550 Section 1</h3>
+      <Link
+        href="https://github.com/Sandracasval/kambaz-next-js.git"
+        id="wd-github"
+      >
+        GitHub Repository
+      </Link>
       <ul>
         <li>
           <Link href="/Labs/Lab1" id="wd-lab1-link">
