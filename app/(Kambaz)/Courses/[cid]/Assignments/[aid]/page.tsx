@@ -1,73 +1,129 @@
+"use client";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormLabel from "react-bootstrap/FormLabel";
+import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import FormSelect from "react-bootstrap/FormSelect";
+import FormCheck from "react-bootstrap/FormCheck";
+
 export default function AssignmentEditor() {
   return (
-    
     <div id="wd-assignments-editor">
-      <label htmlFor="wd-name">Assignment Name</label>
-      <br></br>
-      <br></br>
-      <input id="wd-name" defaultValue="A1 - ENV + HTML" />
-      <br />
-      <br />
-      <textarea
-        id="wd-description"
-        defaultValue="The assignment is available online Submit a link to the landing page of"
-      />
-      <br />
-      <table>
-        <tbody>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Points</label>
-            </td>
-            <td>
-              <input id="wd-points" defaultValue={100} />
-            </td>
-          </tr>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-group">Assignment Group</label>
-            </td>
-            <td>
-              <select id="wd-group">
+      <div id="wd-assignments-editor">
+        <Form>
+          <FormGroup controlId="wd-name" className="mb-3">
+            <FormLabel>Assignment Name</FormLabel>
+            <FormControl as="textarea" rows={1} placeholder="A1" />
+          </FormGroup>
+          {/**Now doing form group for points??? */}
+          <FormGroup controlId="wd-description" className="mb-3">
+            <FormControl
+              as="textarea"
+              rows={8}
+              placeholder={`
+                The assignment is available online
+
+                Submit a link to the landing page of your web application running on Netifly
+
+                The landing page should include the following:
+                • Your full name and section
+                • Links to each of the lab assignments 
+                • Links to the Kambaz application
+                • Links to all relevant code repositories 
+
+                The Kambaz application should include a link to navigate back to the landing page
+                `.replace(/^\s{2,}/gm, "")}
+            />
+          </FormGroup>
+          {/** For the next ones i need to do the horizontal responsive forms from the slides with labels! */}
+          {/**Form Group  */}
+
+          <FormGroup
+            as={Row}
+            controlId="wd-points"
+            className="mb-3 align-items-center"
+          >
+            <FormLabel column sm="2" className="text-sm-end pe-sm-3">
+              Points
+            </FormLabel>
+            <Col sm="10">
+              <FormControl type="number" placeholder="100" />
+            </Col>
+          </FormGroup>
+          {/**DOING ASSIGNMENT GROUP WHERE THE OPTIONS ARE: */}
+          {/**QUIZZES, ASSIGNMENTS, EXAMS, PROJECT */}
+          <FormGroup
+            as={Row}
+            controlId="wd-group"
+            className="mb-3 align-items-center"
+          >
+            <FormLabel column sm="2" className="text-sm-end pe-sm-3">
+              Assignment Group
+            </FormLabel>
+            <Col sm="10">
+              <FormSelect defaultValue="ASSIGNMENTS">
                 <option value="QUIZZES">QUIZZES</option>
-                <option value="ASSIGNMENTS" selected>
-                  ASSIGNMENTS
-                </option>
+                <option value="ASSIGNMENTS">ASSIGNMENTS</option>
                 <option value="EXAMS">EXAMS</option>
                 <option value="PROJECT">PROJECT</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-display-grade-as">Display Grade as</label>
-            </td>
-            <td>
-              <select id="wd-display-grade-as">
+              </FormSelect>
+            </Col>
+          </FormGroup>
+          {/**NOW DOING IT FOR DISPLAY GRADE AS */}
+          {/**THE OPTIONS ARE POINTS, PERCENTAGE, LETTERGRADE, COMPLETEINCOMPLETE2 */}
+          <FormGroup
+            as={Row}
+            controlId="wd-display-grade-as"
+            className="mb-3 align-items-center"
+          >
+            <FormLabel column sm="2" className="text-sm-end pe-sm-3">
+              Display Grade as
+            </FormLabel>
+            <Col sm="10">
+              <FormSelect defaultValue="PERCENTAGE">
                 <option value="POINTS">Points</option>
-                <option value="PERCENTAGE" selected>
-                  Percentage
-                </option>
+                <option value="PERCENTAGE">Percentage</option>
                 <option value="LETTERGRADE">Letter Grade</option>
                 <option value="COMPLETEINCOMPLETE">Complete/Incomplete</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-submission-type">Submission Type</label>
-            </td>
-            <td>
-              <select id="wd-submission-type">
-                <option value="NOSUBMISSION">No Submission</option>
-                <option value="ONLINE" selected>
-                  Online
-                </option>
-                <option value="EXTERNALTOOL">External Tool</option>
-                <option value="ONPAPER">On Paper</option>
-              </select>
-            </td>
-          </tr>
+              </FormSelect>
+            </Col>
+          </FormGroup>
+          {/**Now doing it for Submission Type */}
+          <FormGroup
+            as={Row}
+            controlId="wd-submission-type"
+            className="mb-3 align-items-start"
+          >
+            <FormLabel column sm="2" className="text-sm-end pe-sm-3">
+              Submission Type
+            </FormLabel>
+            <Col sm="10">
+              {/**The rightside contains the box */}
+              <div className="border rounded p-3">
+                <FormSelect defaultValue="ONLINE">
+                  <option value="NOSUBMISSION">No Submission</option>
+                  <option value="ONLINE">Online</option>
+                  <option value="EXTERNALTOOL">External Tool</option>
+                  <option value="ONPAPER">On paper</option>
+                </FormSelect>
+              </div>
+            </Col>
+
+            {/**OPTIONS TITLE FOR ONLINE + CHECKBOXES */}
+          </FormGroup>
+          {/**Now figure out how do sumission type, is it going to be a nested form?? */}
+          {/**I LEFT OFF HERE CALLED CODE EXPLANATION REACT FORM  */}
+          {/* Online Entry Options */}
+        </Form>
+      </div>
+
+      {/** this is the main big table  */}
+      <table>
+        <tbody>
+          {/** I had originally made a row row for each table  */}
           <tr>
             <td align="right" valign="top">
               <label htmlFor="wd-submission-type"></label>
@@ -110,6 +166,8 @@ export default function AssignmentEditor() {
               />
               <label htmlFor="wd-file-upload">File Upload</label>
             </td>
+
+            {/**THIS IS THE END OF WHAT IM LOOKING AT */}
           </tr>
           <tr>
             <td align="right" valign="top">
