@@ -5,11 +5,12 @@ import CourseNavigation from "./Navigation";
 import Breadcrumb from "./Breadcrumb";
 
 //we are trying to render the corresponding courses name
+//parents should return a promise
 export default async function CoursesLayout({
   children,
   params,
-}: Readonly<{ children: ReactNode; params: { cid: string } }>) {
-  const { cid } = params;
+}: Readonly<{ children: ReactNode; params: Promise<{ cid: string }> }>) {
+  const { cid } = await params;
   //this returns the course onject, and store it in a constant called course
   const course = courses.find((course) => course._id === cid);
 
