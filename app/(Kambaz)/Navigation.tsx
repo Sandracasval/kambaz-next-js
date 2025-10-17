@@ -10,13 +10,24 @@ import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { FaBook } from "react-icons/fa";
 import Link from "next/link";
 export default function KambazNavigation() {
-  const pathName = usePathname() || "";
+  //removing the hard coding from the links
+
+  const pathname = usePathname();
+  const links = [
+    { label: "Dashboard", path: "/Dashboard", icon: AiOutlineDashboard },
+    { label: "Courses", path: "/Dashboard", icon: LiaBookSolid },
+    { label: "Calendar", path: "/Calendar", icon: IoCalendarOutline },
+    { label: "Inbox", path: "/Inbox", icon: FaInbox },
+    { label: "Labs", path: "/Labs", icon: LiaCogSolid },
+  ];
+
   return (
     <ListGroup
       className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
       style={{ width: 120 }}
       id="wd-kambaz-navigation"
     >
+      {/*DID NOT CHANGE THE NEU ONE ONLY THE REST */}
       <ListGroupItem
         className="bg-black border-0 text-center"
         as="a"
@@ -26,170 +37,44 @@ export default function KambazNavigation() {
       >
         <img src="/images/NEU.png" width="75px" alt="Northeastern University" />
       </ListGroupItem>
-
+      {/**THIS IS WHERE THE CHANGE STARTS  */}
       <ListGroupItem
-        className={`border-0 text-center ${
-          pathName.toLowerCase().startsWith("/account")
-            ? "bg-white"
-            : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Account"
-          id="wd-account-link"
-          className={`text-decoration-none ${
-            pathName.toLowerCase().startsWith("/account")
-              ? "text-danger"
-              : "text-white"
-          }`}
-        >
-          <FaRegCircleUser
-            className={`fs-1 ${
-              pathName.toLowerCase().startsWith("/account")
-                ? "text-danger"
-                : "text-white"
+        as={Link}
+        href="/Account"
+        className={`text-center border-0 bg-black
+            ${
+              pathname.includes("Account")
+                ? "bg-white text-danger"
+                : "bg-black text-white"
             }`}
-          />
-          <br />
-          Account
-        </Link>
-      </ListGroupItem>
-
-      <ListGroupItem
-        className={`border-0 text-center ${
-          pathName.toLowerCase().startsWith("/dashboard")
-            ? "bg-white"
-            : "bg-black"
-        }`}
       >
-        <Link
-          href="/Dashboard"
-          id="wd-dashboard-link"
-          className={`text-decoration-none ${
-            pathName.toLowerCase().startsWith("/dashboard")
-              ? "text-danger"
-              : "text-white"
+        <FaRegCircleUser
+          className={`fs-1 ${
+            pathname.includes("Account") ? "text-danger" : "text-white"
           }`}
-        >
-          <AiOutlineDashboard
-            className={`fs-1 ${
-              pathName.toLowerCase().startsWith("/dashboard")
-                ? "text-danger"
-                : "text-danger"
-            }`}
-          />
-          <br />
-          Dashboard
-        </Link>
+        />
+        <br />
+        Account
       </ListGroupItem>
-      {/* complete styling the rest of the links */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          pathName.toLowerCase().startsWith("/courses")
-            ? "bg-white"
-            : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Dashboard"
-          id="wd-courses-link"
-          className={`text-decoration-none ${
-            pathName.toLowerCase().startsWith("/courses")
-              ? "text-danger"
-              : "text-white"
-          }`}
+      {links.map((link) => (
+        <ListGroupItem
+          key={link.path}
+          as={Link}
+          href={link.path}
+          className={`bg-black text-center border-0
+              ${
+                pathname.includes(link.label)
+                  ? "text-danger bg-white"
+                  : "text-white bg-black"
+              }`}
         >
-          <FaBook
-            className={`fs-1 ${
-              pathName.toLowerCase().startsWith("/courses")
-                ? "text-danger"
-                : "text-danger"
-            }`}
-          />
+          {link.icon({ className: "fs-1 text-danger" })}
           <br />
-          Courses
-        </Link>
-      </ListGroupItem>
-      {/*Calendar */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          pathName.toLowerCase().startsWith("/calendar")
-            ? "bg-white"
-            : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Calendar"
-          id="wd-courses-link"
-          className={`text-decoration-none ${
-            pathName.toLowerCase().startsWith("/calendar")
-              ? "text-danger"
-              : "text-white"
-          }`}
-        >
-          <IoCalendar
-            className={`fs-1 ${
-              pathName.toLowerCase().startsWith("/calendar")
-                ? "text-danger"
-                : "text-danger"
-            }`}
-          />
-          <br />
-          Calendar
-        </Link>
-      </ListGroupItem>
-      {/*INBOX */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          pathName.toLowerCase().startsWith("/inbox") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Inbox"
-          id="wd-courses-link"
-          className={`text-decoration-none ${
-            pathName.toLowerCase().startsWith("/inbox")
-              ? "text-danger"
-              : "text-white"
-          }`}
-        >
-          <FaInbox
-            className={`fs-1 ${
-              pathName.toLowerCase().startsWith("/inbox")
-                ? "text-danger"
-                : "text-danger"
-            }`}
-          />
-          <br />
-          Inbox
-        </Link>
-      </ListGroupItem>
+          {link.label}
+        </ListGroupItem>
+      ))}
+      {/**ANYTHING BELOW IS THE OLD CODE */}
       {/*Labs  */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          pathName.toLowerCase().startsWith("/labs") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Labs"
-          id="wd-courses-link"
-          className={`text-decoration-none ${
-            pathName.toLowerCase().startsWith("/labs")
-              ? "text-danger"
-              : "text-white"
-          }`}
-        >
-          <GoGear
-            className={`fs-1 ${
-              pathName.toLowerCase().startsWith("/labs")
-                ? "text-danger"
-                : "text-danger"
-            }`}
-          />
-          <br />
-          Labs
-        </Link>
-      </ListGroupItem>
     </ListGroup>
   );
 }

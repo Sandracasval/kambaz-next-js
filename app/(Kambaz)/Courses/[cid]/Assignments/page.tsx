@@ -1,3 +1,6 @@
+"use client";
+import { useParams } from "next/navigation";
+import * as db from "../../../Database";
 import Link from "next/link";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import AssignmentControls from "./AssignmentControls";
@@ -5,8 +8,10 @@ import { BsGripVertical } from "react-icons/bs";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import IndividualControlButtons from "./IndividualControlButtons";
 import { FaBook } from "react-icons/fa6";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function Assignments() {
+  const { cid } = useParams();
+  const assignments = db.Assignments;
   return (
     <div id="wd-assignments">
       <AssignmentControls />
@@ -14,7 +19,7 @@ export default function Assignments() {
       <br />
       <br />
       <br />
-      {/**THIS IS WHERE THE NEW CODE BEGINS */}
+      {/**Implementing new code again for assignments */}
       <ListGroup className="rounded-0" id="wd-modules">
         <ListGroupItem className="wd-module p-0 mb-5 fs-5 border-gray">
           <div
@@ -23,75 +28,50 @@ export default function Assignments() {
           >
             <BsGripVertical /> ASSIGNMENTS <AssignmentControlButtons />
           </div>
-          <ListGroup id="wd-assignment-list" className="wd-lessons rounded-0">
-            <ListGroupItem
-              id="wd-assignment-list-item"
-              className="wd-lesson p-3 ps-1"
-            >
-              <BsGripVertical />
-              <FaBook />
-              <Link
-                href="/Courses/1234/Assignments/123"
-                className="wd-assignment-link"
+          {/**this code is the repetitive one */}
+          {assignments
+            .filter((assignment: any) => assignment.course === cid)
+            .map((assignment: any) => (
+              <ListGroupItem
+                key={
+                  assignment._id ?? `${assignment.title}-${assignment.course}`
+                }
+                className="wd-lesson p-3 ps-1"
               >
-                A1 - ENV + HTML
-              </Link>
-              <IndividualControlButtons />
-              <ListGroup>
-                <ListGroupItem>
-                  <span className="text-danger">Multiple Modules</span> |{" "}
-                  <strong>Not Available until</strong> May 6 at 12:00 am |
-                  <br /> <strong>Due</strong> May 13 at 11:59 pm | 100 pts
-                </ListGroupItem>
-              </ListGroup>
-            </ListGroupItem>
-            <ListGroupItem
-              id="wd-assignment-list-item"
-              className="wd-lesson p-3 ps-1"
-            >
-              <BsGripVertical />
-              <FaBook />
-              <Link
-                href="/Courses/1234/Assignments/123"
-                className="wd-assignment-link"
-              >
-                A2 - CSS + BOOTSRAP
-              </Link>
-              <IndividualControlButtons />
-              <ListGroup>
-                <ListGroupItem>
-                  <span className="text-danger">Multiple Modules</span> |{" "}
-                  <strong>Not Available until</strong> May 13 at 12:00 am |
-                  <br></br>
-                  <strong>Due</strong> May 20 at 11:59 pm | 100 pts
-                </ListGroupItem>
-              </ListGroup>
-            </ListGroupItem>
-            <ListGroupItem
-              id="wd-assignment-list-item"
-              className="wd-lesson p-3 ps-1"
-            >
-              <BsGripVertical />
-              <FaBook />
-              <Link
-                href="/Courses/1234/Assignments/123"
-                className="wd-assignment-link"
-              >
-                A3 - JAVASCRIPT + REACT
-              </Link>
-              <IndividualControlButtons />
-              <ListGroup>
-                <ListGroupItem>
-                  <span className="text-danger">Multiple Modules</span> |{" "}
-                  <strong>Not Available until</strong> May 20 at 12:00 am |
-                  <br></br>
-                  <strong>Due</strong> May 27 at 11:59 pm | 100 pts
-                </ListGroupItem>
-              </ListGroup>
-            </ListGroupItem>
-          </ListGroup>
+                <BsGripVertical />
+                <FaBook />
+                <Link
+                  href={`/Courses/${cid}/Assignments/${assignment._id}`}
+                  className="wd-assignment-link"
+                >
+                  {assignment.title}
+                </Link>
+                <IndividualControlButtons />
+                <ListGroup>
+                  <ListGroupItem>
+                    <span className="text-danger">Multiple Modules</span> |{" "}
+                    <strong>Not Available until</strong> May 6 at 12:00 am |
+                    <br /> <strong>Due</strong> May 13 at 11:59 pm | 100 pts
+                  </ListGroupItem>
+                </ListGroup>
+              </ListGroupItem>
+            ))}
+          {/**repetitive code */}
         </ListGroupItem>
       </ListGroup>
+      {/**
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       *
+       */}
+
+      {/**ANYTHING BELOW THIS IS THE OLD CODE*/}
       {/**THIS THE OLD CODE */}
     </div>
   );
