@@ -8,18 +8,17 @@ import Breadcrumb from "./Breadcrumb";
 export default async function CoursesLayout({
   children,
   params,
-}: Readonly<{ children: ReactNode;  params: { cid: string } }>) { 
-  const { cid } = await params;
+}: Readonly<{ children: ReactNode; params: { cid: string } }>) {
+  const { cid } = params;
   //this returns the course onject, and store it in a constant called course
   const course = courses.find((course) => course._id === cid);
 
   return (
     <div id="wd-courses">
-
       {/**attempt at rendering breadcrumb */}
       <h2 className="text-danger">
         <FaAlignJustify className="me-4 fs-4 mb-1" />
-        <Breadcrumb course={course}/>
+        <Breadcrumb course={course} />
       </h2>
       {/**this is where i put the rendering of breadcrumb */}
       <hr />
