@@ -1,11 +1,16 @@
-import { useSelector, useDispatch } from "react-redux";
-export default function HelloRedux() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { message } = useSelector((state: any) => state.helloReducer);
+"use client";
+import HelloRedux from "./HelloRedux";
+import CounterRedux from "./CounterRedux";
+import AddRedux from "./AddRedux";
+import TodoList from "./todos/TodoList";
+export default function ReduxExamples() {
   return (
-    <div id="wd-hello-redux">
-      <h3>Hello Redux</h3>
-      <h4>{message}</h4> <hr />
+    <div>
+      <h2>Redux Examples</h2>
+      <HelloRedux />
+      <CounterRedux />
+      <AddRedux />
+      <TodoList />
     </div>
   );
 }
