@@ -9,6 +9,14 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import IndividualControlButtons from "./IndividualControlButtons";
 import { FaBook } from "react-icons/fa6";
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+//refactor assignments so that faculty can create. update, and rempve assihnments
+//students can only view assignments
+
+//add assignment function
+//delete assignment function
+//update assignment --> should probably go to the assignment editor?? or maybe
+//just change the name
 export default function Assignments() {
   const { cid } = useParams();
   const assignments = db.Assignments;

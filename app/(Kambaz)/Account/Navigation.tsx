@@ -1,47 +1,30 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Nav, NavItem, NavLink } from "react-bootstrap";
+import { useSelector } from "react-redux";
+//reimplenting the account naviggation sidebar so that iy hides the SignIN and Sinup
+///if a user is alreade signed in
+//hides the profile link if a user is not yet signed in
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function AccountNavigation() {
   const pathName = usePathname();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
   return (
-    <div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
-      {/**Replacing the code with this new one for signin */}
-      <Link
-        href="Signin"
-        id="wd-signin-screen-link"
-        className={`list-group-item ${
-          pathName === "/Account/Signin"
-            ? "active border-0"
-            : "text-danger border-0"
-        }`}
-      >
-        Signin
-      </Link>
-      {/**Replacing the old code  for signup again */}
-      <Link
-        href="Signup"
-        id="wd-signup-screen-link"
-        className={`list-group-item ${
-          pathName === "/Account/Signup"
-            ? "active border-0"
-            : "text-danger border-0"
-        }`}
-      >
-        Signup
-      </Link>
-      {/*** Replacing the old code for profile */}
-      <Link
-        href="Profile"
-        id="wd-profile-screen-link"
-        className={`list-group-item ${
-          pathName === "/Account/Profile"
-            ? "active border-0"
-            : "text-danger border-0"
-        }`}
-      >
-        Profile
-      </Link>
-    </div>
+    <Nav variant="pills">
+      {links.map((link) => (
+        <NavItem key={link}>
+          <NavLink
+            as={Link}
+            href={link}
+            active={pathName.endsWith(link.toLowerCase())}
+          >
+            {link}
+          </NavLink>
+        </NavItem>
+      ))}
+    </Nav>
   );
 }

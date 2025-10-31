@@ -1,11 +1,13 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
+
 export default function CourseNavigation() {
-  const pathName = usePathname();
   const pathname = usePathname();
-  const params = useParams<{ cid: string }>();
-  const cid = params?.cid;
+  const { cid } = useParams<{ cid: string }>();
+
   const links = [
     "Home",
     "Modules",
@@ -16,27 +18,19 @@ export default function CourseNavigation() {
     "Grades",
     "People",
   ];
+
   return (
     <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
-      {/**here is where are tring to do this again
-       * retrieve the courses ID from the dynamic route parameter
-       * using the params onject in the layour or page component
-       *
-       */}
-      {links.map((link) => (
-        //this is where my code goes
-        <Link
-          key={link}
-          href={`/Courses/${cid}/${link}`}
-          className={`list-group-item ${
-            pathname === `/Courses/${cid}/${link}`
-              ? "active border-0"
-              : "text-danger border-0"
-          }`}
-        >
-          {link}
-        </Link>
-      ))}
+      {links.map((link) => {
+        const href = `/Courses/${cid}/${link}`;
+        const active =
+          pathname === href ? "active border-0" : "text-danger border-0";
+        return (
+          <Link key={link} href={href} className={`list-group-item ${active}`}>
+            {link}
+          </Link>
+        );
+      })}
     </div>
   );
 }
