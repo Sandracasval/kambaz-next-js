@@ -8,6 +8,12 @@ import { BsGripVertical } from "react-icons/bs";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import IndividualControlButtons from "./IndividualControlButtons";
 import { FaBook } from "react-icons/fa6";
+import { addAssignment, updateAssignment, deleteAssignment } from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
+import DeleteEditor from "./DeleteEditor";
+import { RootState } from "../../../store";
+import { useState } from "react";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 //refactor assignments so that faculty can create. update, and rempve assihnments
@@ -17,12 +23,31 @@ import { FaBook } from "react-icons/fa6";
 //delete assignment function
 //update assignment --> should probably go to the assignment editor?? or maybe
 //just change the name
+import { useRouter } from "next/navigation"; // For Next.js App Router
+
+//REFACTOR
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.Assignments;
+  //const assignments = db.Assignments;
+  const [assignmentTitle, setAssignmentTitle] = useState("");
+  const { assignments } = useSelector(
+    (state: RootState) => state.assignmentsReducer
+  );
+  //adding a const for the delete
+  const dispatch = useDispatch();
+  //to send them to the assignment Editor
+  const reRouter = useRouter();
+
   return (
     <div id="wd-assignments">
-      <AssignmentControls />
+      {/**this is where i add the addModules function from the reducer */}
+      <AssignmentControls
+        assignmentTitle={assignmentTitle}
+        setAssignmentTitle={setAssignmentTitle}
+        addAssignment={() => {
+          reRouter.push(`/Courses/${cid}/Assignments/Editor`);
+        }}
+      />
       <br />
       <br />
       <br />
@@ -48,13 +73,20 @@ export default function Assignments() {
               >
                 <BsGripVertical />
                 <FaBook />
+                {/**THIS IS WHERE YOU CLICK THE ASSIGNMENT */}
                 <Link
                   href={`/Courses/${cid}/Assignments/${assignment._id}`}
                   className="wd-assignment-link"
                 >
                   {assignment.title}
                 </Link>
-                <IndividualControlButtons />
+                {/**THIS IS WHERE THE TRASHCAN LEAVES */}
+                <IndividualControlButtons
+                  assignmentId={assignment._id}
+                  deleteAssignment={(assignmentId) => {
+                    dispatch(deleteAssignment(assignmentId));
+                  }}
+                />
                 <ListGroup>
                   <ListGroupItem>
                     <span className="text-danger">Multiple Modules</span> |{" "}
@@ -64,6 +96,7 @@ export default function Assignments() {
                 </ListGroup>
               </ListGroupItem>
             ))}
+
           {/**repetitive code */}
         </ListGroupItem>
       </ListGroup>
