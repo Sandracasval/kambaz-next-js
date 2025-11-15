@@ -4,13 +4,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import { modules } from "../../../Database";
 import { v4 as uuidv4 } from "uuid";
 //allows us to use the new modules and edits in outside components
+//THE INITIAL STATE OF MODULES IS AN EMPTY ARRAY
 const initialState = {
-  modules: modules,
+  modules: [],
 };
 const modulesSlice = createSlice({
   name: "modules",
   initialState,
   reducers: {
+    //setModules populaes the modules state variable when
+    //we retrieve modules from the server
+    setModules: (state, action) => {
+      state.modules = action.payload;
+    },
+
     addModule: (state, { payload: module }) => {
       const newModule: any = {
         _id: uuidv4(),
@@ -21,8 +28,7 @@ const modulesSlice = createSlice({
       state.modules = [...state.modules, newModule] as any;
     },
     deleteModule: (state, { payload: moduleId }) => {
-      state.modules = state.modules.filter(
-        (m: any) => m._id !== moduleId);
+      state.modules = state.modules.filter((m: any) => m._id !== moduleId);
     },
     updateModule: (state, { payload: module }) => {
       state.modules = state.modules.map((m: any) =>
@@ -36,6 +42,6 @@ const modulesSlice = createSlice({
     },
   },
 });
-export const { addModule, deleteModule, updateModule, editModule } =
+export const { addModule, deleteModule, updateModule, editModule, setModules } =
   modulesSlice.actions;
 export default modulesSlice.reducer;

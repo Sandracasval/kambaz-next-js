@@ -1,4 +1,5 @@
 "use client";
+import * as client from "../client";
 import Link from "next/link";
 import FormControl from "react-bootstrap/FormControl";
 import FormSelect from "react-bootstrap/FormSelect";
@@ -20,11 +21,20 @@ export default function Profile() {
   const [profile, setProfile] = useState<any>({});
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  //implementing the updateProfile event handler to update the profile on the server
+  const updateProfile = async () => {
+    const updatedProfile = await client.updateUser(profile);
+    dispatch(setCurrentUser(updatedProfile));
+  };
+
   const fetchProfile = () => {
     if (!currentUser) return redirect("/Account/Signin");
     setProfile(currentUser);
   };
-  const signout = () => {
+  //signout funciton invokes the signout client function and then navigates to the
+  //signin screen
+  const signout = async () => {
+    await client.signout();
     dispatch(setCurrentUser(null));
     redirect("/Account/Signin");
   };
@@ -100,6 +110,14 @@ export default function Profile() {
             <option value="FACULTY">FACULTY</option>
             <option value="STUDENT">STUDENT</option>
           </FormSelect>
+          {/**button to update */}
+          <button
+            onClick={updateProfile}
+            className="btn btn-primary w-100 mb-2"
+          >
+            {" "}
+            Update{" "}
+          </button>
           {/** button to sign out  */}
           <Button onClick={signout} className="w-100 mb-2" id="wd-signout-btn">
             Sign out

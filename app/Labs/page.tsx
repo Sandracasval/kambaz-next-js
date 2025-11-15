@@ -32,6 +32,11 @@ export default function Labs() {
             Lab 4: More JavaScript{" "}
           </Link>
         </li>
+          <li>
+          <Link href="/Labs/Lab5" id="wd-lab5-link">
+            Lab 5: Node HTTP servers
+          </Link>
+        </li>
         <li>
           <Link href="/" id="wd-kambaz-link">
             Kambaz
