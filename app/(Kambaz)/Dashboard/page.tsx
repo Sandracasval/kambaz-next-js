@@ -93,6 +93,7 @@ export default function Dashboard() {
     );
   };
 
+  //testing
   const fetchCourses = async () => {
     try {
       const courses = await client.findMyCourses();
