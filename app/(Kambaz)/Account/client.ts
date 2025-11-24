@@ -43,3 +43,41 @@ export const signout = async () => {
   const response = await axiosWithCredentials.post(`${USERS_API}/signout`);
   return response.data;
 };
+
+//the findAllUsers function sends a GET request to the server and awaits for the
+//server reponse containing an array of users in
+//in the data property
+export const findAllUsers = async () => {
+  const response = await axiosWithCredentials.get(USERS_API);
+  return response.data;
+};
+
+//this encodes the role in the query string of the url
+export const findUsersByRole = async (role: string) => {
+  const response = await axios.get(`${USERS_API}?role=${role}`);
+  return response.data;
+};
+//encodes the name in the query string which the sever can use to filter
+//users by their first and lastName
+export const findUsersByPartialName = async (name: string) => {
+  const response = await axios.get(`${USERS_API}?name=${name}`);
+  return response.data;
+};
+
+//the user interface can interact with the server using the findUserById client function
+export const findUserById = async (id: string) => {
+  const response = await axios.get(`${USERS_API}/${id}`);
+  return response.data;
+};
+
+//client function integrates with the deleteUser route in the server
+export const deleteUser = async (userId: string) => {
+  const response = await axios.delete(`${USERS_API}/${userId}`);
+  return response.data;
+};
+//the createUser function interacts with the route created aboe
+//this posts the new user object to the server
+export const createUser = async (user: any) => {
+  const response = await axios.post(`${USERS_API}`, user);
+  return response.data;
+};
