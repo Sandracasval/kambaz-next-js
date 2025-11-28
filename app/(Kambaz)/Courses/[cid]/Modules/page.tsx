@@ -40,7 +40,7 @@ export default function Modules() {
 
   //updateModule function
   const onUpdateModule = async (module: any) => {
-    await client.updateModule(module);
+    await client.updateModule(cid as string, module);
     const newModules = modules.map((m: any) =>
       m._id === module._id ? module : m
     );
@@ -50,7 +50,7 @@ export default function Modules() {
   //onRemove removes the module from the server, if succesful, filter the module
   //from the modules array and dispatch the new list of modules to the reducer
   const onRemoveModule = async (moduleId: string) => {
-    await client.deleteModule(moduleId);
+    await client.deleteModule(cid as string, moduleId);
     dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
   };
 
