@@ -60,7 +60,8 @@ export default function Modules() {
   //onCreateModuleForCourse event handler uses the new CreateModuleForCourse
   //client function to send the module to the server and then dispatches the
   //created module to the reducer so its added to the reducers module state
-  //variable
+  //variab
+  //adding a comment gi
   const onCreateModuleForCourse = async () => {
     if (!cid) return;
     const newModule = { name: moduleName, course: cid };
